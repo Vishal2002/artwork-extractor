@@ -14,5 +14,6 @@ data/
 # Ignore environment variables
 .env
 
-# Ignore session files
+# Ignore session filess
 flask_session/
+
