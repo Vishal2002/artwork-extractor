@@ -1,3 +1,4 @@
 Flask==2.3.2
 pdfplumber==0.10.0
 Werkzeug==2.3.6
+flask-session==0.8.0
