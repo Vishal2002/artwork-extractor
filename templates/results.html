@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork Extraction Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Artwork Extraction Results</h1>
+        <p>Review and edit the extracted artwork information before saving to the database.</p>
+        
+        <div id="artwork-container">
+          {% if artworks and artworks|length > 0 %}
+    {% for artwork in artworks %}
+                <div class="artwork-card" data-id="{{ artwork.id }}">
+                    <div class="confidence-indicator" style="width: {{ (artwork.confidence * 100)|round(0)|int }}%;"></div>
+                    <h3>Artwork #{{ loop.index }}</h3>
+                    <p class="page-info">Page {{ artwork.page_number }}</p>
+                    
+                    <div class="form-group">
+                        <label for="title-{{ artwork.id }}">Title:</label>
+                        <input type="text" id="title-{{ artwork.id }}" value="{{ artwork.title or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="artist-{{ artwork.id }}">Artist:</label>
+                        <input type="text" id="artist-{{ artwork.id }}" value="{{ artwork.artist or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dimensions-{{ artwork.id }}">Dimensions:</label>
+                        <input type="text" id="dimensions-{{ artwork.id }}" value="{{ artwork.dimensions or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="material-{{ artwork.id }}">Material:</label>
+                        <input type="text" id="material-{{ artwork.id }}" value="{{ artwork.material or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="year-{{ artwork.id }}">Year:</label>
+                        <input type="text" id="year-{{ artwork.id }}" value="{{ artwork.year or '' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description-{{ artwork.id }}">Original Text:</label>
+                        <textarea id="description-{{ artwork.id }}" readonly>{{ artwork.description or '' }}</textarea>
+                    </div>
+                    
+                    <div class="actions">
+                        <button class="btn-remove" onclick="removeArtwork('{{ artwork.id }}')">Remove</button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No artwork information found in the PDF.</p>
+            {% endif %}
+        </div>
+        
+        <div class="actions-container">
+            <button id="save-button" class="btn" onclick="saveToDatabase()">Save to Database</button>
+            <button class="btn btn-secondary" onclick="window.location.href='{{ url_for('index') }}'">Upload Another PDF</button>
+
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

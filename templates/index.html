@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork PDF Scraper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Artwork PDF Scraper</h1>
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <div class="upload-area">
+                <label for="pdf_file">Select PDF containing artwork information</label>
+                <input type="file" id="pdf_file" name="pdf_file" accept=".pdf" required>
+            </div>
+            <button type="submit" class="btn">Extract Artwork Information</button>
+        </form>
+    </div>
+</body>
+</html>
